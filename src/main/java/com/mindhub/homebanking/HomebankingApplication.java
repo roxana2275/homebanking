@@ -16,12 +16,15 @@ public class HomebankingApplication {
 
 	@Bean
 	public CommandLineRunner initData(ClientRepository clientRepository){
+		;
 		return(args -> {
 			Client client1 = new Client("Melba","Morel","melba@mindhub.com");
 			clientRepository.save(client1);
 
 			Client client2= new Client("Ricardo","Sanchez","ricardo@mindhub.com");
 			clientRepository.save(client2);
+
+
 		});
 	}
 }
