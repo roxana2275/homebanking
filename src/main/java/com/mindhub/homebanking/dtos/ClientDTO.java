@@ -11,11 +11,9 @@ public class ClientDTO {
     private String firstName;
     private String lastName;
     private String email;
-
-    private Set<AccountDTO> accounts = new HashSet<>();
+    private Set<AccountDTO> accounts=new HashSet<>();
     public ClientDTO() {
     }
-
     public ClientDTO(Client client) {
         this.id = client.getId();
         this.firstName = client.getFirstName();
@@ -42,8 +40,8 @@ public class ClientDTO {
     public String getEmail() {
         return email;
     }
+
     public Set<AccountDTO> getAccounts() {
         return accounts;
     }
-
 }
