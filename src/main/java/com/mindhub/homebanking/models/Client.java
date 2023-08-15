@@ -1,6 +1,7 @@
 package com.mindhub.homebanking.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -23,6 +24,8 @@ public class Client {
     private Set<Account> accounts=new HashSet<>();
     @OneToMany(mappedBy="client", fetch= FetchType.EAGER)
     private Set<ClientLoan> clientLoans = new HashSet<>();
+    @OneToMany(mappedBy="client", fetch= FetchType.EAGER)
+    private Set<Card> cards = new HashSet<>();
 
     public Client() {
     }
@@ -57,7 +60,7 @@ public class Client {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    @JsonIgnore
     public Set<Account> getAccounts() {
         return accounts;
     }
@@ -68,23 +71,20 @@ public class Client {
     public void setClientLoans(Set<ClientLoan> clientLoans) {
         this.clientLoans = clientLoans;
     }
-
+    @JsonIgnore
     public Set<ClientLoan> getClientLoans() {return clientLoans;}
     public void addClientLoan(ClientLoan clientLoan) {
         clientLoan.setClient(this);
         clientLoans.add(clientLoan);}
-
+    @JsonIgnore
     public List<Loan> getLoans(){return clientLoans.stream().map(clientLoan -> clientLoan.getLoan()).collect(Collectors.toList());}
-
-    @Override
-    public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", accounts=" + accounts +
-                ", clientLoans=" + clientLoans +
-                '}';
+    @JsonIgnore
+    public Set<Card> getCards() {
+        return cards;
     }
+    public void addCard(Card card) {
+        card.setClient(this);
+        cards.add(card);}
+
+
 }
