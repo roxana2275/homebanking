@@ -72,17 +72,30 @@ public class Account {
     public Client getClient() {
         return client;
     }
-
     public void setClient(Client client) {
         this.client = client;
     }
 
     public Set<Transaction> getTransactions() {
+
         return transactions;
     }
 
     public void setTransactions(Set<Transaction> transactions) {
+
         this.transactions = transactions;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", number='" + number + '\'' +
+                ", date=" + date +
+                ", balance=" + balance +
+                ", client=" + client +
+                ", transactions=" + transactions +
+                '}';
     }
 }
 
