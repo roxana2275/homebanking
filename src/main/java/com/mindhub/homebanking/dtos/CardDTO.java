@@ -16,7 +16,6 @@ public class CardDTO {
     private int cvv;
     private LocalDate thruDate;
     private LocalDate fromDate;
-    private Client client;
 
 
     public CardDTO(Card card){
@@ -27,8 +26,6 @@ public class CardDTO {
         this.cvv=card.getCvv();
         this.thruDate = card.getThruDate();
         this.fromDate = card.getFromDate();
-        this.client  = card.getClient();
-
     }
 
     public long getId() {
@@ -63,8 +60,5 @@ public class CardDTO {
         return fromDate;
     }
 
-    public Client getClient() {
-        return client;
-    }
 
 }

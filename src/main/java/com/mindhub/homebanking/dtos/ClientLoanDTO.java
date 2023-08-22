@@ -6,22 +6,32 @@ import com.mindhub.homebanking.models.Loan;
 
 public class ClientLoanDTO {
     private long id;
+    private Long loanId;
+    private String name;
     private double Amount;
     private int Payments;
-    private  String name;
+    private  Client  client;
 
-
-    public ClientLoanDTO(){}
 
     public ClientLoanDTO(ClientLoan clientLoan){
         this.id = clientLoan.getId();
+        this.loanId=clientLoan.getLoan().getId();
+        this.name = clientLoan.getLoan().getName();
         this.Amount = clientLoan.getAmount();
         this.Payments = clientLoan.getPayments();
-        this.name = clientLoan.getLoan().getName();
+        this.client = clientLoan.getClient();
     }
 
     public long getId() {
         return id;
+    }
+
+    public Long getLoanId() {
+        return loanId;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public double getAmount() {
@@ -32,8 +42,7 @@ public class ClientLoanDTO {
         return Payments;
     }
 
-    public String getName() {
-        return name;
+    public Client getClient() {
+        return client;
     }
-
 }

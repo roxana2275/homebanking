@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="img/hucha.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
@@ -13,13 +13,8 @@
     <title>Cards</title>
 </head>
 
-<body>
-    <style>
-        [v-cloak] {
-            display: none;
-        }
-    </style>
-    <div id="app" v-cloak>
+<body class="container bg-secondary text-white">
+    <div id="app">
         <div class="toast-container position-absolute p-3 top-0 end-0" id="toastPlacement">
             <div id="danger-toast" data-bs-delay="2000" class="toast align-items-center text-white bg-danger border-0"
                 role="alert" aria-live="assertive" aria-atomic="true">
@@ -38,45 +33,46 @@
                     <div class="">
                         <a href="/web/accounts.html"
                             class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                            <img class="menu-logo" src="img/Mindhub-logo.png">
+                            <img class="menu-logo" src="img/hucha.png">
 
                         </a>
                         <hr>
-                        <ul class="nav nav-pills flex-column mb-auto">
+                        <ul class="nav nav-pills flex-column mb-auto" style="background-color: #e3f2fd;">
                             <li class="nav-item">
-                                <a href="/web/accounts.html" class="nav-link link-dark">
-                                    <i class="bi bi-inboxes"></i>
+                                <a href="/web/accounts.html" class="nav-link ">
+                                    <img src="img/cuentas.png" class="incon">
                                     Accounts
                                 </a>
                             </li>
                             <li>
-                                <a href="/web/cards.html" class="nav-link active">
-                                    <i class="bi bi-credit-card"></i>
+                                <a href="/web/cards.html" class="nav-link link-dark active">
+                                    <img src="img/tarjeta-de-credito.png" class="incon">
                                     Cards
                                 </a>
                             </li>
                             <li>
                                 <a href="/web/transfers.html" class="nav-link link-dark">
-                                    <i class="bi bi-box-arrow-right"></i>
+                                    <img src="img/transferencias.png" class="incon">
                                     Transfers
                                 </a>
                             </li>
                             <li>
                                 <a href="/web/loan-application.html" class="nav-link link-dark">
-                                    <i class="bi bi-cash"></i>
+                                    <img src="img/prestamos.png" class="incon">
                                     Loans
                                 </a>
                             </li>
                         </ul>
                         <hr>
                         <ul class="nav nav-pills flex-column mb-auto">
-                            <button class="btn btn-danger img-fluid">Sign out</button>
+                            <button class="btn btn-warning img-fluid" v-on:click="signOut"><img src="img/salida.png" class="incon">  Sign out</button>
                         </ul>
                     </div>
                 </div>
                 <div class="col">
                     <div class="row">
-                        <div class="col">
+                        <div class="col d-flex aline-item-center">
+                            <img src="img/persona.png" class="incon-name">
                             <h1 class="display-1">{{ clientInfo.firstName }} {{ clientInfo.lastName }}</h1>
                         </div>
                     </div>
@@ -93,7 +89,7 @@
                                 <div class="plastic-card__square">
                                     <span class="plastic-card__label">{{ card.type}} {{ card.color }}</span>
                                 </div>
-                                <img class="plastic-card__front-logo plastic-card__logo" src="img/Mindhub-logo.png">
+                                <img class="plastic-card__front-logo plastic-card__logo" src="img/hucha.png">
                                 <p class="plastic-card_numer">{{ card.number}}</p>
                                 <div class="plastic-card__space-60">
                                     <span class="plastic-card__label">card holder</span>
@@ -115,7 +111,7 @@
                                     <div class="plastic-card__back-square plastic-card__square">
                                         <span class="plastic-card__label">{{ card.type}} {{ card.color }}</span>
                                     </div>
-                                    <img class="plastic-card__back-logo plastic-card__logo" src="img/Mindhub-logo.png">
+                                    <img class="plastic-card__back-logo plastic-card__logo" src="img/hucha.png">
                                 </div>
                             </div>
                         </div>
@@ -133,7 +129,7 @@
                                 <div class="plastic-card__square">
                                     <span class="plastic-card__label">{{ card.type}} {{ card.color }}</span>
                                 </div>
-                                <img class="plastic-card__front-logo plastic-card__logo" src="img/Mindhub-logo.png">
+                                <img class="plastic-card__front-logo plastic-card__logo" src="img/hucha.png">
                                 <p class="plastic-card_numer">{{ card.number}}</p>
                                 <div class="plastic-card__space-60">
                                     <span class="plastic-card__label">card holder</span>
@@ -155,7 +151,7 @@
                                     <div class="plastic-card__back-square plastic-card__square">
                                         <span class="plastic-card__label">{{ card.type}} {{ card.color }}</span>
                                     </div>
-                                    <img class="plastic-card__back-logo plastic-card__logo" src="img/Mindhub-logo.png">
+                                    <img class="plastic-card__back-logo plastic-card__logo" src="img/hucha.png">
                                 </div>
                             </div>
                         </div>

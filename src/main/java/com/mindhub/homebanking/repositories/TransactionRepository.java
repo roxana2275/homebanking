@@ -7,5 +7,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import java.util.List;
 @RepositoryRestResource
 public interface TransactionRepository extends JpaRepository<Transaction,Long> {
-    List<Transaction> findByAccount(Long id);
+
 }
