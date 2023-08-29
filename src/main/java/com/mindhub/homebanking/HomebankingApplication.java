@@ -40,7 +40,7 @@ public class HomebankingApplication {
 
 					Account account1 = new Account("VIN001",LocalDate.now(),5000);
 					Account account2 = new Account("VIN002",LocalDate.now().plusDays(1),7500);
-					Client client1 = new Client("Melba", "Morel","melba@melba",passwordEncoder.encode("Password1"));
+					Client client1 = new Client("Melba", "Morel","melba@melba.com",passwordEncoder.encode("Password1"));
 					clientRepository.save(client1);
 					client1.addAccount(account1);
 					client1.addAccount(account2);
@@ -57,7 +57,7 @@ public class HomebankingApplication {
 					accountRepository.save(account3);
 					clientRepository.save(client2);
 
-					Client admin = new Client("admin", "admin", "admin@admin", passwordEncoder.encode("admin"));
+					Client admin = new Client("admin", "admin", "admin@admin.com", passwordEncoder.encode("admin"));
 
 					Transaction transaction1 = new Transaction(TransactionType.DEBIT, -1000.5, "Luz", LocalDateTime.now(), account1);
 					transactionRepository.save(transaction1);

@@ -88,3 +88,25 @@
 .incon-name{
 width:8%;
 }
+.info-button {
+    background-color: coral;
+    border: none;
+    color: black;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 20%;
+  }
+  .info-box {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+      width: 200px;
+      z-index: 1;
+    }

@@ -9,6 +9,7 @@ Vue.createApp({
             errorToats: null,
             errorMsg: "",
             showSignUp: false,
+            infoBoxVisible: false,
         }
     },
     methods: {
@@ -35,9 +36,9 @@ Vue.createApp({
             }
             axios.post('/api/clients', `firstName=${this.firstName}&lastName=${this.lastName}&email=${this.email}&password=${this.password}`, config)
                 .then(() => { this.signIn(event) })
-                .catch(() => {
-                    this.errorMsg = "Sign up failed, check the information"
-                    this.errorToats.show();
+                .catch((error) => {
+                   this.errorMsg = error.response.data;
+                   this.errorToats.show();
                 })
         },
         showSignUpToogle: function () {

@@ -79,7 +79,13 @@
                     <div class="row mt-3">
                         <div class="col">
                             <h2 class="display-6 subtitle">Debit Cards</h2>
+                            <a v-if="clientInfo.cards != null && clientInfo.cards.length < 6" href="create-cards.html"
+                               id="create" class="btn btn-sm btn-success border fs-4 ms-3">Create</a>
                             <div v-if="debitCards.length <= 0"><span class="small">No debit cards</span></div>
+                            <button class="info-button m-3 border" v-on:click="infoBoxVisible = !infoBoxVisible">?</button>
+                            <div id="infoBox" class="info-box" v-if="infoBoxVisible">
+                                <p>Here you can create a new card</p>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -167,6 +173,16 @@
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
     <script src="js/cards.js"></script>
+    <script>
+        function toggleInfoBox() {
+        var infoBox = document.getElementById("infoBox");
+        if (infoBox.style.display === "none") {
+        infoBox.style.display = "block";
+        } else {
+        infoBox.style.display = "none";
+        }
+        }
+    </script>
 </body>
 
 </html>

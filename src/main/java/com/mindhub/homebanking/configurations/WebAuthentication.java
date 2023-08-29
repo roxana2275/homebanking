@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,17 +20,16 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
     @Autowired
     ClientRepository clientRepository;
     @Bean
-
     public PasswordEncoder passwordEncoder() {
-
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-
     }
     @Override
     public void init(AuthenticationManagerBuilder auth) throws Exception {
-
-        auth.userDetailsService(inputName-> {
-
+        auth.userDetailsService(userDetailsService());
+    }
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return inputName -> {
             Client client = clientRepository.findByEmail(inputName);
 
             if (client != null) {
@@ -41,13 +41,10 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
                     return new User(client.getEmail(), client.getPassword(), AuthorityUtils.createAuthorityList("CLIENT"));
                 }
             } else {
-
                 throw new UsernameNotFoundException("Unknown user: " + inputName);
-
             }
-
-        });
-
+        };
     }
+
 
 }

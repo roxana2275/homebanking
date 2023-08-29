@@ -4,6 +4,7 @@ Vue.createApp({
             clientInfo: {},
             errorToats: null,
             errorMsg: null,
+            infoBoxVisible: false,
         }
     },
     methods: {

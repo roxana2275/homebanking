@@ -9,7 +9,7 @@
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/style.css">
-    <title>Mindhub Bank</title>
+    <title>Saving Bank</title>
 </head>
 
 <body class="index-body">
@@ -34,13 +34,14 @@
                             class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last welcome shadow-sm rounded-5">
                             <div class="text w-100">
                                 <img class="welcome-logo" src="img/hucha.png">
-                                <h2>Welcome to MindHub Bank</h2>
+                                <h2>Welcome to Saving Bank</h2>
+                                <h4>This is a game for children to practice how a bank works</h4>
                                 <div v-if="showSignUp" class="form-group">
                                     <a v-on:click="showSignUpToogle" href="#" class="btn btn-light my-2"><small>Sign
                                             In</small></a>
                                 </div>
                                 <template v-if="!showSignUp">
-                                    <p>Don't have an account?</p>
+                                    <p class="text-white">Don't have an account?</p>
                                     <button v-on:click="showSignUpToogle" class="btn btn-light">Sign Up</button>
 
                                 </template>
@@ -74,7 +75,14 @@
                                     <div class="w-100">
                                         <h3 class="mb-4">Sign Up</h3>
                                     </div>
+
+                                    <button class="info-button m-3 border" v-on:click="infoBoxVisible = !infoBoxVisible">?</button>
+                                    <div id="infoBox" class="info-box " v-if="infoBoxVisible">
+                                        <p>Remember not to put personal information, all fictitious data</p>
+                                    </div>
+
                                 </div>
+
                                 <form action="#" class="signout-form" v-on:submit="signUp($event)">
                                     <div class="form-group mb-3">
                                         <label class="label" for="firstName">First name</label>
