@@ -2,6 +2,7 @@ package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dtos.AccountDTO;
 
+import com.mindhub.homebanking.dtos.ClientDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
 
@@ -30,12 +32,29 @@ public class AccountController {
     public List<AccountDTO> getAccount() {
         return accountRepository.findAll().stream().map(AccountDTO::new).collect(toList());
     }
-
+    /*
     @GetMapping("accounts/{id}")
-    public AccountDTO getAccount(@PathVariable Long id){
-
+    public AccountDTO getAccount(@PathVariable Long id, Authentication authentication){
         return accountRepository.findById(id).map(AccountDTO::new).orElse(null);
+    }
+    */
 
+    @GetMapping("/accounts/{id}")
+    public ResponseEntity<?> getOneAccount(@PathVariable Long id, Authentication authentication) {
+        Client client = clientRepository.findByEmail(authentication.getName());
+        Account account = accountRepository.findById(id).orElse(null);
+        if (account == null){
+            return new ResponseEntity<>("account not found", HttpStatus.NOT_FOUND);
+        }
+        if (!client.getAccounts().contains(account)) {
+            return new ResponseEntity<>("is not your account", HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<>(new AccountDTO(account), HttpStatus.OK);
+    }
+    @GetMapping("/clients/current/accounts")
+    public List<AccountDTO> getAcccount(Authentication authentication){
+        return new ClientDTO(clientRepository.findByEmail(authentication.getName()))
+                .getAccounts().stream().collect(toList());
     }
     @PostMapping("/clients/current/accounts")
     public ResponseEntity<Object> createAccount(Authentication authentication){
