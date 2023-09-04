@@ -3,10 +3,9 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.Transaction;
-import com.mindhub.homebanking.models.TransactionType;
-import com.mindhub.homebanking.repositories.AccountRepository;
-import com.mindhub.homebanking.repositories.ClientRepository;
-import com.mindhub.homebanking.repositories.TransactionRepository;
+import com.mindhub.homebanking.services.AccountService;
+import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,11 +25,12 @@ import static com.mindhub.homebanking.models.TransactionType.DEBIT;
 @RequestMapping("/api")
 public class TransactionController {
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientService clientService;
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountService accountService;
+
     @Autowired
-    private TransactionRepository transactionRepository;
+    private TransactionService transactionService;
 
     @Transactional
     @PostMapping("/transactions")
@@ -39,54 +39,54 @@ public class TransactionController {
                                                    @RequestParam Double amount,
                                                    @RequestParam String description,
                                                    Authentication authentication){
-        Client client =clientRepository.findByEmail(authentication.getName());
+        if(authentication==null){
+            return new ResponseEntity<>("Logaut", HttpStatus.FORBIDDEN);
+        }
+        Client client =clientService.getClient(authentication);
 
-        Account originAccount = accountRepository.findByNumber(fromAccountNumber);
-        Account destinyAccount = accountRepository.findByNumber(toAccountNumber);
+
         if (description.trim().isEmpty()) {
             return new ResponseEntity<>("Missing description", HttpStatus.FORBIDDEN);
         }
-        if (amount.isNaN()) {
-            return new ResponseEntity<>("Missing enter amount", HttpStatus.FORBIDDEN);
-        }
-        if (amount <= 0 || amount.isInfinite()) {
-            return new ResponseEntity<>("Wrong value", HttpStatus.FORBIDDEN);
-        }
-        if (amount == null) {
+        if (!transactionService.controlNumber(amount)) {
             return new ResponseEntity<>("Missing amount", HttpStatus.FORBIDDEN);
         }
-        if (fromAccountNumber.trim().isEmpty()) {
+        if (!transactionService.controlWrongNumber(amount)) {
+            return new ResponseEntity<>("Wrong value", HttpStatus.FORBIDDEN);
+        }
+        if (!transactionService.controlString(fromAccountNumber)) {
             return new ResponseEntity<>("Missing origin account", HttpStatus.FORBIDDEN);
         }
-        if (toAccountNumber.trim().isEmpty()) {
+        if (!transactionService.controlString(toAccountNumber)) {
             return new ResponseEntity<>("Missing destination account", HttpStatus.FORBIDDEN);
         }
         if (toAccountNumber.equals(fromAccountNumber)) {
             return new ResponseEntity<>("Destination account must be different", HttpStatus.FORBIDDEN);
         }
-
-        if (originAccount == null) {
+        Account originAccount = accountService.getAcctounByNumber(fromAccountNumber);
+        Account destinyAccount = accountService.getAcctounByNumber(toAccountNumber);
+        if (!accountService.controlAccount(originAccount)) {
             return new ResponseEntity<>("Origin account do not exist", HttpStatus.FORBIDDEN);
         }
-        if (destinyAccount == null) {
+        if (!accountService.controlAccount(destinyAccount)) {
             return new ResponseEntity<>("Destination account do not exist", HttpStatus.FORBIDDEN);
         }
         if (originAccount.getBalance() < amount) {
             return new ResponseEntity<>("You don't have enough amount", HttpStatus.FORBIDDEN);
         }
-        if (clientRepository.findByEmail(authentication.getName()).getAccounts().stream().noneMatch(account -> account.getNumber().equals(fromAccountNumber))) {
+        if (clientService.findByEmail(authentication.getName()).getAccounts().stream().noneMatch(account -> account.getNumber().equals(fromAccountNumber))) {
             return new ResponseEntity<>("You cannot transfer to the same account", HttpStatus.FORBIDDEN);
         }
         Transaction debit = new Transaction( DEBIT, (amount*-1), "To " + toAccountNumber + ": " + description, LocalDateTime.now(),originAccount);
-        transactionRepository.save(debit);
+        transactionService.saveTransaction(debit);
         Transaction credit = new Transaction(CREDIT,amount, "From " + fromAccountNumber + ": " + description,  LocalDateTime.now(),destinyAccount);
-        transactionRepository.save(credit);
+        transactionService.saveTransaction(credit);
         originAccount.addTransaction(debit);
         destinyAccount.addTransaction(credit);
         originAccount.setBalance(originAccount.getBalance() - amount);
         destinyAccount.setBalance(destinyAccount.getBalance() + amount);
-        accountRepository.save(originAccount);
-        accountRepository.save(destinyAccount);
+        accountService.saveAccount(originAccount);
+        accountService.saveAccount(destinyAccount);
         return new ResponseEntity<>("Transaction ok", HttpStatus.OK);
     }
 }

@@ -6,8 +6,6 @@ Vue.createApp({
             errorMsg: null,
             cardType: "none",
             cardColor: "none",
-            infoBoxVisible: false,
-
         }
     },
     methods: {
