@@ -66,8 +66,8 @@ public class LoanController {
         if (account == null) {
             return new ResponseEntity<>("Account used to apply to the loan do not exist", HttpStatus.FORBIDDEN);
         }
-        if (loanApplicationDTO.getAmount() <= 0) {
-            return new ResponseEntity<>("Insufficient amount", HttpStatus.FORBIDDEN);
+        if (loanApplicationDTO.getAmount() <= 0|| loanApplicationDTO.getAmount().isNaN() ||loanApplicationDTO.getAmount().isInfinite() ) {
+            return new ResponseEntity<>("Wrong amount", HttpStatus.FORBIDDEN);
         }
         if (loanApplicationDTO.getPayments() <= 0) {
             return new ResponseEntity<>("Incorrect payments amount", HttpStatus.FORBIDDEN);

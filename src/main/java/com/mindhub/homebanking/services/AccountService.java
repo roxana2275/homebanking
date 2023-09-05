@@ -16,5 +16,5 @@ public interface AccountService {
     Account getAcctounByNumber(String numberAccount);
     void saveAccount(Account account);
     boolean controlAccount(Account acctoun);
-    boolean controlString(String text);
+
 }

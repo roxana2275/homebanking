@@ -9,11 +9,8 @@ import java.util.List;
 
 public interface LoanService {
 
-    List<ClientLoanDTO> getAllClientLoans();
     List<LoanDTO> getAllLoans();
     Loan getLoanById(Long id);
-    void saveClientLoan(ClientLoan clientLoan);
     void saveLoan(Loan loan);
-    boolean controlString(String text);
-    boolean controlPayments(Integer pay);
+
 }

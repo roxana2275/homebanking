@@ -27,14 +27,18 @@ public class CardController {
     @Autowired
     private CardRepository cardRepository;
     @PostMapping("/clients/current/cards")
-    public ResponseEntity<Object> createCard(@RequestParam CardType cardType, @RequestParam CardColor cardColor, Authentication authentication){
-        Client client =clientRepository.findByEmail(authentication.getName());
+    public ResponseEntity<Object> createCard(@RequestParam CardType cardType, @RequestParam CardColor cardColor, Authentication authentication) {
+        Client client = clientRepository.findByEmail(authentication.getName());
         Set<Card> card = client.getCards();
         String auxCardNumber;
         card = card.stream().filter(card1 -> card1.getType().equals(cardType)).collect(Collectors.toSet());
+        Set<Card> colorcard ;
+        colorcard = card.stream().filter(card1 -> card1.getColor().equals(cardColor)).collect(Collectors.toSet());
         if (card.size() >= 3) {
             return new ResponseEntity<>("You cannot have more than three cards", HttpStatus.FORBIDDEN);
-        }else{
+        } else if(colorcard.size() >= 1){
+            return new ResponseEntity<>("You cannot have two identical cards", HttpStatus.FORBIDDEN);
+         }else{
             do {
                 auxCardNumber = (int) ((Math.random() * 10000)) + " " + (int) ((Math.random() * 10000)) + " " + (int) ((Math.random() * 10000)) + " " + (int) ((Math.random() * 10000));
             }while (cardRepository.findByNumber(auxCardNumber) != null);

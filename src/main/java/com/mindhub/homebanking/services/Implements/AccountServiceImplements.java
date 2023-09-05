@@ -21,13 +21,6 @@ public class AccountServiceImplements implements AccountService {
     @Autowired
     private ClientService clienteService;
 
-    public boolean controlString(String text){
-        boolean result=true;
-        if(text.isEmpty()){
-            result=false;
-        }
-        return result;
-    }
     @Override
     public List<AccountDTO> getAccounts(Authentication authentication){
         return clienteService.getCurrent(authentication).getAccounts().stream().collect(toList());
