@@ -26,11 +26,19 @@ public class HomebankingApplication {
 	@Bean
 	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository){
 		;
+<<<<<<< Updated upstream
 		return(args -> {
 					LocalDate date = LocalDate.now();
 					Account account1 = new Account("VIN001",date,5000);
 					Account account2 = new Account("VIN002",date.plusDays(1),7500);
 					Client client1 = new Client("Melba", "Morel","melba@melba");
+=======
+		return args -> {
+/*
+					Account account1 = new Account("VIN001",LocalDate.now(),5000);
+					Account account2 = new Account("VIN002",LocalDate.now().plusDays(1),7500);
+					Client client1 = new Client("Melba", "Morel","melba@melba.com",passwordEncoder.encode("Password1"));
+>>>>>>> Stashed changes
 					clientRepository.save(client1);
 					client1.addAccount(account1);
 					client1.addAccount(account2);
@@ -81,6 +89,34 @@ public class HomebankingApplication {
 					account3.addTransaction(transaction10);
 
 
+<<<<<<< Updated upstream
 		});
+=======
+					ClientLoan clientLoan1 = new ClientLoan(400000, 60,client1, loan1);
+					ClientLoan clientLoan2 = new ClientLoan(50000,12,client1,loan2);
+					client1.addClientLoan(clientLoan1);
+					client1.addClientLoan(clientLoan2);
+					clientRepository.save(client1);
+					clientLoanRepository.save(clientLoan1);
+					clientLoanRepository.save(clientLoan2);
+					clientRepository.save(client1);
+
+					ClientLoan clientLoan3 = new ClientLoan(100000, 24,client2, loan2);
+					ClientLoan clientLoan4 = new ClientLoan(200000,36,client2,loan3);
+					client2.addClientLoan(clientLoan3);
+					client2.addClientLoan(clientLoan4);
+					clientRepository.save(client2);
+					clientLoanRepository.save(clientLoan3);
+					clientLoanRepository.save(clientLoan4);
+
+					clientRepository.save(client2);
+
+
+					cardRepository.save(new Card(CardType.DEBIT,GOLD, "1234 1234 1234 1234", 123, LocalDate.now().plusYears(5),LocalDate.now(),client1));
+					cardRepository.save(new Card(CardType.CREDIT, TITANIUM , "4321 4321 4321 4321", 321, LocalDate.now().plusYears(5),LocalDate.now(),client1));
+					cardRepository.save(new Card(CardType.CREDIT, SILVER , "5555 5555 4444 444", 987, LocalDate.now().plusYears(5),LocalDate.now(),client2));
+*/
+		};
+>>>>>>> Stashed changes
 	}
 }
