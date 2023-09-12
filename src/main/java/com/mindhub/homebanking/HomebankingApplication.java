@@ -18,6 +18,7 @@ import static com.mindhub.homebanking.models.CardType.*;
 import static com.mindhub.homebanking.models.TransactionType.*;
 
 
+
 @SpringBootApplication
 public class HomebankingApplication {
 
@@ -27,7 +28,7 @@ public class HomebankingApplication {
 	}
 
 	@Autowired
-	private PasswordEncode passwordEncode;
+	private PasswordEncoder passwordEncoder;
 	@Bean
 	public CommandLineRunner initData(ClientRepository clientRepository,
 									  AccountRepository accountRepository,
@@ -37,7 +38,7 @@ public class HomebankingApplication {
 									  CardRepository cardRepository){
 		;
 		return args -> {
-
+/*
 					Account account1 = new Account("VIN001",LocalDate.now(),5000);
 					Account account2 = new Account("VIN002",LocalDate.now().plusDays(1),7500);
 					Client client1 = new Client("Melba", "Morel","melba@melba.com",passwordEncoder.encode("Password1"));
@@ -121,7 +122,7 @@ public class HomebankingApplication {
 					cardRepository.save(new Card(CardType.DEBIT,GOLD, "1234 1234 1234 1234", 123, LocalDate.now().plusYears(5),LocalDate.now(),client1));
 					cardRepository.save(new Card(CardType.CREDIT, TITANIUM , "4321 4321 4321 4321", 321, LocalDate.now().plusYears(5),LocalDate.now(),client1));
 					cardRepository.save(new Card(CardType.CREDIT, SILVER , "5555 5555 4444 444", 987, LocalDate.now().plusYears(5),LocalDate.now(),client2));
-
+*/
 		};
 	}
 }
