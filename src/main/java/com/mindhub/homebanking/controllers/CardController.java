@@ -6,6 +6,7 @@ import com.mindhub.homebanking.models.CardType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.CardRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.utils.CardUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class CardController {
     public ResponseEntity<Object> createCard(@RequestParam CardType cardType, @RequestParam CardColor cardColor, Authentication authentication) {
         Client client = clientRepository.findByEmail(authentication.getName());
         Set<Card> card = client.getCards();
-        String auxCardNumber;
+        
         card = card.stream().filter(card1 -> card1.getType().equals(cardType)).collect(Collectors.toSet());
         Set<Card> colorcard ;
         colorcard = card.stream().filter(card1 -> card1.getColor().equals(cardColor)).collect(Collectors.toSet());
@@ -38,17 +39,20 @@ public class CardController {
             return new ResponseEntity<>("You cannot have more than three cards", HttpStatus.FORBIDDEN);
         } else if(colorcard.size() >= 1){
             return new ResponseEntity<>("You cannot have two identical cards", HttpStatus.FORBIDDEN);
-         }else{
+         }
+        String auxCardNumber;
             do {
-                auxCardNumber = (int) ((Math.random() * 10000)) + " " + (int) ((Math.random() * 10000)) + " " + (int) ((Math.random() * 10000)) + " " + (int) ((Math.random() * 10000));
+                auxCardNumber = CardUtils.getCardNumber();
             }while (cardRepository.findByNumber(auxCardNumber) != null);
-        }
-        int cvv=(int) ((Math.random() * 1000));
+
+        int cvv = CardUtils.getCvv();
         Card newCard = new Card(cardType , cardColor,auxCardNumber, cvv, LocalDate.now(), LocalDate.now().plusYears(5),client);
         cardRepository.save(newCard);
         client.addCard(newCard);
         clientRepository.save(client);
         return new ResponseEntity<>( HttpStatus.CREATED);
     }
+
+
 
 }
