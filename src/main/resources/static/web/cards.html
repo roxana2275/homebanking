@@ -85,8 +85,7 @@
                             <a v-if="clientInfo.cards != null && clientInfo.cards.length < 6" href="create-cards.html"
                                id="create" class="btn btn-sm btn-success border fs-4 ms-3">Create</a>
                             <div class="container mt-1">
-                                <button type="button" class="btn btn-primary" data-toggle="tooltip" title="
-With the create button you can create up to three cards">?</button>
+                                <button type="button" class="btn btn-primary" data-toggle="tooltip" title="With the create button you can create up to three cards">?</button>
                             <div v-if="debitCards.length <= 0"><span class="small">No debit cards</span></div>
 
                             </div>
@@ -96,11 +95,7 @@ With the create button you can create up to three cards">?</button>
 
                         <div v-for="card in debitCards" class="plastic-card col-12 col-md-3 mt-2">
                             <div
-                                    v-bind:class="[
-                'plastic-card__front',
-                'plastic-card__part',
-                card.color.toLowerCase() + '-plastic-card',
-                { 'text-red': new Date(card.thruDate).valueOf() < Date.now().valueOf()}]">
+                                    v-bind:class="['plastic-card__front','plastic-card__part',card.color.toLowerCase() + '-plastic-card']">
                                 <div class="plastic-card__square">
                                     <span class="plastic-card__label">{{ card.type}} {{ card.color }}</span>
                                 </div>
@@ -112,16 +107,15 @@ With the create button you can create up to three cards">?</button>
                                 </div>
                                 <div class="plastic-card__space-25">
                                     <span class="plastic-card__label">Expires</span>
-                                    <p class="plastic-card__info">{{ formatDate(card.thruDate) }}</p>
+                                    <p class="plastic-card__info" v-bind:class="{ 'text-red': isDateExpired(card.thruDate) }">
+                                        {{ formatDate(card.thruDate) }}
+                                    </p>
+
                                 </div>
                             </div>
 
                             <div
-                                    v-bind:class="[
-                                            'plastic-card__back',
-                                            'plastic-card__part',
-                                            card.color.toLowerCase() + '-plastic-card',
-                                            { 'text-red': card.thruDate>Date.now()}]">
+                                    v-bind:class="['plastic-card__back','plastic-card__part',card.color.toLowerCase() + '-plastic-card']">
                                 <div class="plastic-card__black-line"></div>
                                 <div class="plastic-card__back-content">
                                     <div class="plastic-card__secret">
@@ -163,7 +157,10 @@ With the create button you can create up to three cards">?</button>
                                 </div>
                                 <div class="plastic-card__space-25">
                                     <span class="plastic-card__label">Expires</span>
-                                    <p class="plastic-card__info">{{ formatDate(card.thruDate) }}</p>
+                                    <p class="plastic-card__info" v-bind:class="{ 'text-red': isDateExpired(card.thruDate) }">
+                                        {{ formatDate(card.thruDate) }}
+                                    </p>
+
                                 </div>
 
 

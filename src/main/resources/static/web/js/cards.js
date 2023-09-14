@@ -8,6 +8,7 @@ Vue.createApp({
       errorToats: null,
       errorMsg: null,
       infoBoxVisible: false,
+      currentDate: new Date(Date.now()).toISOString().split('T')[0],
     };
   },
   methods: {
@@ -23,6 +24,9 @@ Vue.createApp({
             (card) => card.type === "DEBIT"&&card.active==true
           );
           console.log('Credit Cards:', this.debitCards);
+          //console.log(Date.now())
+          console.log(this.currentDate)
+          console.log(this.debitCards[1].thruDate)
         })
         .catch((error) => {
           this.errorMsg = "Error al obtener los datos";
@@ -56,7 +60,7 @@ confirmDelete(cardNumber) {
                            window.location.reload();
                          }, 1800);
           } else {
-                // La solicitud tuvo éxito pero la respuesta no es 200 (puedes manejar otros códigos de estado aquí)
+
                 Swal.fire({
                   position: 'center',
                   title: 'Card deletion failed',
@@ -64,6 +68,7 @@ confirmDelete(cardNumber) {
                   timer: 1500
                 });
               }
+
             })
     .catch(err => {
       console.log(err)
@@ -79,6 +84,11 @@ confirmDelete(cardNumber) {
       }
     })
   },
+  isDateExpired(thruDate) {
+          const currentDate = new Date();
+          const cardDate = new Date(thruDate);
+          return cardDate < currentDate;
+      },
     signOut: function () {
       axios
         .post("/api/logout")

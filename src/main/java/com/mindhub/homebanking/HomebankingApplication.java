@@ -112,9 +112,9 @@ public class HomebankingApplication {
 					account3.setBalance(account3.getBalance()+30000.76);
 					accountRepository.save(account3);
 
-					Loan loan1 = new Loan("Mortgage",500000, Arrays.asList(12, 24, 36, 48, 60));
-					Loan loan2 = new Loan("Personal",100000, Arrays.asList(6,12,24));
-					Loan loan3 = new Loan("Auto ",300000, Arrays.asList(6,12,24,36));
+					Loan loan1 = new Loan("Mortgage",500000,10, Arrays.asList(12, 24, 36, 48, 60));
+					Loan loan2 = new Loan("Personal",100000,20, Arrays.asList(6,12,24));
+					Loan loan3 = new Loan("Auto ",300000,30, Arrays.asList(6,12,24,36));
 					loanRepository.save(loan1);
 					loanRepository.save(loan2);
 					loanRepository.save(loan3);

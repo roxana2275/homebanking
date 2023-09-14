@@ -10,7 +10,8 @@ Vue.createApp({
             errorMsg: null,
             accountToNumber: "VIN",
             amount: 0,
-            fees: []
+            fees: [],
+            totalLoan: 0
         }
     },
     methods: {
@@ -68,7 +69,18 @@ Vue.createApp({
         },
         checkFees: function () {
             this.fees = [];
-            this.totalLoan = parseInt(this.amount) + (this.amount * 0.2);
+            const selectedLoanType = this.loanTypes.find(loanType => loanType.id == this.loanTypeId);
+            console.log(selectedLoanType)
+            if (!selectedLoanType) {
+
+                    this.errorMsg = "Selected loan type not found";
+                    this.errorToats.show();
+                    return;
+                }
+                console.log(selectedLoanType.percentage);
+            const interestRate = selectedLoanType.percentage;
+            this.totalLoan = parseInt(this.amount) + (this.amount * interestRate/100);
+            //this.totalLoan = parseInt(this.amount) + (this.amount * 0.2);
             let amount = this.totalLoan / this.payments;
             for (let i = 1; i <= this.payments; i++) {
                 this.fees.push({ amount: amount });

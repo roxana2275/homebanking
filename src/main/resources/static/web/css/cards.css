@@ -167,5 +167,7 @@
 	-moz-transform: rotateY(0deg);
 }
 .text-red {
-    color: red;
+    color: black;
+    text-shadow: 2px 2px red;
+    font-weight:700;
 }

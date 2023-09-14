@@ -20,6 +20,7 @@ public class Loan {
     private String name;
     private long maxAmount;
 
+    private Integer percentage;
     @ElementCollection
     @Column(name="payments")
     private List<Integer> payments = new ArrayList<>();
@@ -31,10 +32,11 @@ public class Loan {
     public Loan() {
     }
 
-    public Loan(String name, long maxAmount, List<Integer> payments) {
+    public Loan(String name, long maxAmount, Integer percentage, List<Integer> payments) {
         this.name = name;
         this.maxAmount = maxAmount;
         this.payments = payments;
+        this.percentage = percentage;
     }
 
     public long getId() {return id;}
@@ -54,4 +56,11 @@ public class Loan {
     @JsonIgnore
     public  List<Client> getClient(){return clientLoans.stream().map(clientLoan -> clientLoan.getClient()).collect(Collectors.toList());}
 
+    public Integer getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(Integer percentage) {
+        this.percentage = percentage;
+    }
 }

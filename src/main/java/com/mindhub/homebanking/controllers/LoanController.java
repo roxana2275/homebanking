@@ -81,7 +81,7 @@ public class LoanController {
         if (client.getAccounts().stream().noneMatch(chocolate -> chocolate.getNumber().equals(loanApplicationDTO.getDestinationAccount()))) {
             return new ResponseEntity<>("7-Account do not belongs to the client", HttpStatus.FORBIDDEN);
         }
-        double plusPercentage = (loanApplicationDTO.getAmount() * 20 / 100) + (loanApplicationDTO.getAmount());
+        double plusPercentage = (loanApplicationDTO.getAmount() * loan.getPercentage()/100) + (loanApplicationDTO.getAmount());
         ClientLoan newLoan = new ClientLoan(plusPercentage, loanApplicationDTO.getPayments(),client,loan);
         Transaction newTransaction = new Transaction(TransactionType.CREDIT, loanApplicationDTO.getAmount(), "loan: "+loan.getName() , LocalDateTime.now(), account);
         account.setBalance(account.getBalance() + loanApplicationDTO.getAmount());
