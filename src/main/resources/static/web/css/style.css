@@ -110,3 +110,9 @@ width:8%;
       width: 200px;
       z-index: 1;
     }
+    .text-inactive {
+        color: #999; /* Define el color de texto para tarjetas inactivas */
+    }
+    .text-red {
+        color: red;
+    }

@@ -38,7 +38,7 @@ public class HomebankingApplication {
 									  CardRepository cardRepository){
 		;
 		return args -> {
-/*
+
 					Account account1 = new Account("VIN001",LocalDate.now(),5000);
 					Account account2 = new Account("VIN002",LocalDate.now().plusDays(1),7500);
 					Client client1 = new Client("Melba", "Morel","melba@melba.com",passwordEncoder.encode("Password1"));
@@ -63,34 +63,54 @@ public class HomebankingApplication {
 					Transaction transaction1 = new Transaction(TransactionType.DEBIT, -1000.5, "Luz", LocalDateTime.now(), account1);
 					transactionRepository.save(transaction1);
 					account1.addTransaction(transaction1);
+					account1.setBalance(account1.getBalance()-1000.5);
+					accountRepository.save(account1);
 					Transaction transaction2 = new Transaction(TransactionType.DEBIT, -500.5, "Agua", LocalDateTime.now(),account1);
 					transactionRepository.save(transaction2);
 					account1.addTransaction(transaction2);
+					account1.setBalance(account1.getBalance()-500.5);
+					accountRepository.save(account1);
 					Transaction transaction3 = new Transaction(TransactionType.CREDIT, 20000.00, "Factura Servicios", LocalDateTime.now(),account1);
 					transactionRepository.save(transaction3);
 					account1.addTransaction(transaction3);
+					account1.setBalance(account1.getBalance()+20000);
+					accountRepository.save(account1);
+
 
 					Transaction transaction4 = new Transaction(TransactionType.DEBIT, -552.65, "Luz", LocalDateTime.now(), account2);
 					transactionRepository.save(transaction4);
 					account2.addTransaction(transaction4);
+					account2.setBalance(account2.getBalance()-552.65);
+					accountRepository.save(account2);
 					Transaction transaction5 = new Transaction(TransactionType.DEBIT, -1086.74, "Agua", LocalDateTime.now(),account2);
 					transactionRepository.save(transaction5);
 					account2.addTransaction(transaction5);
+					account2.setBalance(account2.getBalance()-1086.74);
+					accountRepository.save(account2);
 					Transaction transaction6 = new Transaction(TransactionType.CREDIT, 40000.33, "Factura Servicios", LocalDateTime.now(),account2);
 					transactionRepository.save(transaction6);
 					account2.addTransaction(transaction6);
+					account2.setBalance(account2.getBalance()+40000.33);
+					accountRepository.save(account2);
 
 					Transaction transaction7 = new Transaction(TransactionType.DEBIT, -500.00, "Luz", LocalDateTime.now(),account3);
 					transactionRepository.save(transaction7);
 					account3.addTransaction(transaction7);
+					account3.setBalance(account3.getBalance()-500);
+					accountRepository.save(account3);
 					Transaction transaction8 = new Transaction(TransactionType.CREDIT, 10001.86, "Factura Servicios", LocalDateTime.now(),account3);
 					transactionRepository.save(transaction8);
 					account3.addTransaction(transaction8);
+					account3.setBalance(account3.getBalance()+1001.86);
+					accountRepository.save(account3);
 					Transaction transaction9 = new Transaction(TransactionType.DEBIT, -500.00, "Gas", LocalDateTime.now(),account3);
 					transactionRepository.save(transaction9);
+					account3.setBalance(account3.getBalance()-500);
 					Transaction transaction10 = new Transaction(TransactionType.CREDIT, 30000.76, "Factura Servicios", LocalDateTime.now(),account3);
 					transactionRepository.save(transaction10);
 					account3.addTransaction(transaction10);
+					account3.setBalance(account3.getBalance()+30000.76);
+					accountRepository.save(account3);
 
 					Loan loan1 = new Loan("Mortgage",500000, Arrays.asList(12, 24, 36, 48, 60));
 					Loan loan2 = new Loan("Personal",100000, Arrays.asList(6,12,24));
@@ -120,9 +140,10 @@ public class HomebankingApplication {
 
 
 					cardRepository.save(new Card(CardType.DEBIT,GOLD, "1234 1234 1234 1234", 123, LocalDate.now().plusYears(5),LocalDate.now(),client1));
+					cardRepository.save(new Card(CardType.DEBIT,SILVER, "1111 1111 1111 1111", 123, LocalDate.now().plusYears(-5),LocalDate.now().plusDays(-2),client1));
 					cardRepository.save(new Card(CardType.CREDIT, TITANIUM , "4321 4321 4321 4321", 321, LocalDate.now().plusYears(5),LocalDate.now(),client1));
 					cardRepository.save(new Card(CardType.CREDIT, SILVER , "5555 5555 4444 444", 987, LocalDate.now().plusYears(5),LocalDate.now(),client2));
-*/
+
 		};
 	}
 }

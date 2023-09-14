@@ -3,8 +3,7 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.dtos.ClientDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.repositories.AccountRepository;
-import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,12 +20,12 @@ import java.util.Random;
 @RestController
 @RequestMapping("/api")
 public class ClientController {
-    @Autowired
-    private ClientRepository clientRepository;
+
     @Autowired
     private ClientService clientService;
+
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountService accountService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -73,7 +72,7 @@ public class ClientController {
             Random random = new Random();
             int numeroAleatorio = random.nextInt(100000000);
             numberAccount = "VIN" + numeroAleatorio;
-            Account account = accountRepository.findByNumber(numberAccount);
+            Account account = accountService.getAcctounByNumber(numberAccount);
             if(account==null){
                 auxAccount=false;
             }
@@ -81,7 +80,7 @@ public class ClientController {
 
         Account account = new Account(numberAccount, LocalDate.now(),0);
         account.setClient(client);
-        accountRepository.save(account);
+        accountService.saveAccount(account);
         client.addAccount(account);
         clientService.saveClient(client);
 

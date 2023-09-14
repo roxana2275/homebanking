@@ -166,3 +166,6 @@
 	-webkit-transform: rotateY(0deg);
 	-moz-transform: rotateY(0deg);
 }
+.text-red {
+    color: red;
+}
