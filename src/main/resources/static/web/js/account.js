@@ -15,7 +15,6 @@ Vue.createApp({
                     //get client ifo
                     this.accountInfo = response.data;
                     this.accountInfo.transactions.sort((a, b) => parseInt(b.id - a.id))
-
                 })
                 .catch((error) => {
                     // handle error

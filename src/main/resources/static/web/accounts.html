@@ -87,13 +87,17 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col d-flex">
+
                             <h2 class="display-6 subtitle">Accounts</h2>
-                            <button v-if="accounts != null && accounts.length < 3"
+                          <button v-if="accounts != null && accounts.length < 3"
                                     v-on:click="create" id="create" class="btn btn-sm btn-success border fs-4 ms-3">Create</button>
                             <div class="container mt-1">
                                 <button type="button" class="btn btn-primary" data-toggle="tooltip" title="With the create button you can create up to three accounts">?</button>
                             </div>
+
+
                         </div>
+
                     </div>
                     <div class="row mx-2">
                         <div v-for="account in accounts" class="col-12 col-md-4 mt-2 " >
