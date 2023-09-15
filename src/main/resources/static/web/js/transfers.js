@@ -30,41 +30,75 @@ Vue.createApp({
             return new Date(date).toLocaleDateString('en-gb');
         },
         checkTransfer: function () {
-            if (this.accountFromNumber == "VIN") {
-                this.errorMsg = "You must select an origin account";
-                this.errorToats.show();
-            }
-            else if (this.accountToNumber == "VIN") {
-                this.errorMsg = "You must select a destination account";
-                this.errorToats.show();
-            } else if (this.amount == 0) {
-                this.errorMsg = "You must indicate an amount";
-                this.errorToats.show();
-            }
-            else if (this.description.length <= 0) {
-                this.errorMsg = "You must indicate a description";
-                this.errorToats.show();
-            } else {
-                this.modal.show();
-            }
-        },
-        transfer: function () {
-            let config = {
-                headers: {
-                    'content-type': 'application/x-www-form-urlencoded'
-                }
-            }
-            axios.post(`/api/transactions?fromAccountNumber=${this.accountFromNumber}&toAccountNumber=${this.accountToNumber}&amount=${this.amount}&description=${this.description}`, config)
-                .then(response => {
+          if (this.accountFromNumber === "VIN") {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'You must select an origin account',
+            });
+          } else if (this.accountToNumber === "VIN") {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'You must select a destination account',
+            });
+          } else if (this.amount === 0) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'You must indicate an amount',
+            });
+          } else if (this.description.length <= 0) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'You must indicate a description',
+            });
+          } else {
+            // Mostrar una alerta de confirmación con SweetAlert
+            Swal.fire({
+              title: 'Confirm Funds Transfer',
+              text: 'Transfer cannot be undone, do you want to continue?',
+              icon: 'question',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, transfer the funds',
+              cancelButtonText: 'Cancel',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                // Realizar la transferencia
+                let config = {
+                  headers: {
+                    'content-type': 'application/x-www-form-urlencoded',
+                  },
+                };
+
+                axios
+                  .post(
+                    `/api/transactions?fromAccountNumber=${this.accountFromNumber}&toAccountNumber=${this.accountToNumber}&amount=${this.amount}&description=${this.description}`,
+                    config
+                  )
+                  .then((response) => {
                     this.modal.hide();
-                    this.okmodal.show();
-                })
-                .catch((error) => {
+                    Swal.fire({
+                      icon: 'success',
+                      title: 'Transaction complete!',
+                      text: 'The funds have been transferred!',
+                    }).then(() => {
+                      this.okmodal.show();
+                    });
+                  })
+                  .catch((error) => {
                     console.log(error);
                     this.errorMsg = error.response.data;
                     this.errorToats.show();
-                })
+                  });
+              }
+            });
+          }
         },
+    
         changedType: function () {
             this.accountFromNumber = "VIN";
             this.accountToNumber = "VIN";

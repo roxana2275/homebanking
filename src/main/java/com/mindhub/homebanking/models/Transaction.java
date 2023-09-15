@@ -39,8 +39,6 @@ public class Transaction {
         }else{
             this.active=false;
         }
-
-
     }
 
     public long getId() {

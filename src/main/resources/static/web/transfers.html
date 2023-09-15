@@ -13,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
     <title>Transfer</title>
 </head>
 
@@ -139,42 +140,42 @@ You can transfer between your accounts or to other">?</button>
             </div>
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="confirModal" tabindex="-1" aria-labelledby="confirModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="confirModalLabel">Confirm Funds Transfer</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Transfer cannot be undone, do you want to continue?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" v-on:click="transfer" class="btn btn-sm btn-success">Yes, transfer
-                            the funds</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal 2-->
-        <div class="modal fade" id="okModal" tabindex="-1" aria-labelledby="okModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="okModalLabel">Transaction complete!</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        The funds have been transferred! <i class="bi bi-check-circle-fill text-success"></i>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" v-on:click="finish" class="btn btn-sm btn-success"
-                            data-bs-dismiss="modal">Ok</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--        <div class="modal fade" id="confirModal" tabindex="-1" aria-labelledby="confirModalLabel" aria-hidden="true">-->
+<!--            <div class="modal-dialog">-->
+<!--                <div class="modal-content">-->
+<!--                    <div class="modal-header">-->
+<!--                        <h5 class="modal-title" id="confirModalLabel">Confirm Funds Transfer</h5>-->
+<!--                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                    </div>-->
+<!--                    <div class="modal-body">-->
+<!--                        Transfer cannot be undone, do you want to continue?-->
+<!--                    </div>-->
+<!--                    <div class="modal-footer">-->
+<!--                        <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Cancel</button>-->
+<!--                        <button type="button" v-on:click="transfer" class="btn btn-sm btn-success">Yes, transfer-->
+<!--                            the funds</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Modal 2&ndash;&gt;-->
+<!--        <div class="modal fade" id="okModal" tabindex="-1" aria-labelledby="okModalLabel" aria-hidden="true">-->
+<!--            <div class="modal-dialog">-->
+<!--                <div class="modal-content">-->
+<!--                    <div class="modal-header">-->
+<!--                        <h5 class="modal-title" id="okModalLabel">Transaction complete!</h5>-->
+<!--                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                    </div>-->
+<!--                    <div class="modal-body">-->
+<!--                        The funds have been transferred! <i class="bi bi-check-circle-fill text-success"></i>-->
+<!--                    </div>-->
+<!--                    <div class="modal-footer">-->
+<!--                        <button type="button" v-on:click="finish" class="btn btn-sm btn-success"-->
+<!--                            data-bs-dismiss="modal">Ok</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -188,6 +189,7 @@ You can transfer between your accounts or to other">?</button>
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </body>
 
 </html>

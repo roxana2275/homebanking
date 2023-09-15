@@ -50,7 +50,7 @@ public class CardController {
             }while (cardRepository.findByNumber(auxCardNumber) != null);
 
         int cvv = CardUtils.getCvv();
-        Card newCard = new Card(cardType , cardColor,auxCardNumber, cvv, LocalDate.now(), LocalDate.now().plusYears(5),client);
+        Card newCard = new Card(cardType , cardColor,auxCardNumber, cvv, LocalDate.now().plusYears(5),LocalDate.now(),client);
         cardRepository.save(newCard);
         client.addCard(newCard);
         clientService.saveClient(client);
